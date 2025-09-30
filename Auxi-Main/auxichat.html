@@ -7,19 +7,18 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- I added Katex & Latex for like equations -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" xintegrity="sha384-wn8BqTCA3ur/ImDopwLZHk3EO7T2RykW9qG0mI59H/W5DPyT9uAAo8BCE8S0m9/xp" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" xintegrity="sha384-hPUWvH4aewK49xKzU5s4Yv2VuyS/iRmiW5j+gK/4jXb0M/6iL4tF+P5XFvS4s3gE" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" xintegrity="sha384-n9t+Abe3K+Rk/L5tJpW+y4U3vR4zUeGk3R5M6iGv2gJ784vJ6t1p9rU8X1w9m2Q4" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
     
-    <!-- Style -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> 
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         
-
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #000000; 
+            background-color: #18161c; 
             color: #e5e7eb; 
             min-height: 100vh;
             display: flex;
@@ -36,25 +35,23 @@
             height: 100%;
             z-index: 0; 
             background-image: radial-gradient(ellipse at 50% 40%, 
-                rgba(5, 15, 25, 1) 0%,   /* Blue centre */
-                rgba(0, 0, 0, 1) 70%      /* Attempted fade lmfao */
+                rgba(5, 15, 25, 1) 0%, 
+                rgb(0, 0, 0) 70% 
             );
         }
         
-        /* Header */
         #header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 20;
-            background-color: rgba(0, 0, 0, 0.8); 
+            background-color: rgba(24, 21, 21, 0.038); 
             backdrop-filter: blur(5px); 
             border-bottom: 1px solid #1f2937; 
             box-shadow: 0 4px 30px rgba(79, 70, 229, 0.1); 
         }
         
-        /* Input design */
         #input-area-wrapper {
             position: fixed;
             bottom: 0;
@@ -66,7 +63,6 @@
             padding-top: 1rem; 
         }
         
-        /* Actual input container */
         #input-area {
             background-color: #111827; 
             border: 1px solid #1f2937;
@@ -116,7 +112,7 @@
             box-shadow: 0 0 10px #10b981;
         }
 
-   
+    
         @keyframes spin {
             to {
                 transform: rotate(360deg);
@@ -148,36 +144,57 @@
             margin-top: 0.75em !important;
             margin-bottom: 0.75em !important;
         }
+
+        .ai-message p:first-child {
+            margin-top: 0;
+        }
+        .ai-message p:last-child {
+            margin-bottom: 0;
+        }
+        .ai-message ul, .ai-message ol {
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            list-style-position: outside;
+        }
+        .ai-message ul {
+            list-style-type: disc;
+        }
+        .ai-message strong {
+            font-weight: 700;
+            color: #ffffff; 
+        }
     </style>
 </head>
+
+
 <body class="p-0 m-0">
-
     <div id="radial-background"></div>
-
-
     <div id="header" class="p-4">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-
+        <div class="bg-background-dark/95 backdrop-blur-sm max-w-7xl mx-auto flex justify-between items-center shadow-xl shadow-black/20">
             <div class="flex items-center space-x-3">
-                <div class="p-2 border border-gray-700 rounded-xl">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
-                        <rect x="5" y="5" width="14" height="14" rx="3" ry="3"/>
-                        <line x1="5" y1="16" x2="19" y2="16"/>
-                    </svg>
-                </div>
-                <h1 class="text-xl font-extrabold tracking-tight text-white hidden sm:block">Auxi</h1>
+                <a href="./homepage.html" class="flex items-center space-x-2 text-heading-color hover:opacity-90 transition-opacity">
+                    <div class="w-8 h-8 flex items-center justify-center">
+                        <img src="https://api.iconify.design/lucide-book.svg?color=%23f8fafc" alt="Auxi logo - minimal book" class="w-7 h-7" />
+                    </div>
+                    <span class="text-2xl font-bold font-heading tracking-tight">Auxi</span>
+                </a>
             </div>
-
-            <!-- Navigation Links -->
             <nav class="flex space-x-2 sm:space-x-4 text-sm font-medium">
                 <a href="./homepage.html" class="nav-link">Home</a>
-                <a href="./about-us.html" class="nav-link hidden sm:block">About Us</a>
-                <a href="./shop.html" class="nav-link hidden sm:block">Shop</a>
-
                 <a href="./auxichat.html" class="nav-link active">Auxi Chat</a>
-                <a href="./frontpage.html" class="nav-link">Log Out</a>
+                <a href="./quiz.html" class="nav-link hidden sm:block">Quiz</a>
+                <a href="./shop.html" class="nav-link hidden sm:block">Shop</a>
+                <a href="./about-us.html" class="nav-link hidden sm:block">About Us</a>
+                <a href="./frontpage.html" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-3 rounded-lg shadow-md transition duration-300 flex items-center gap-1.5 whitespace-nowrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" x2="9" y1="12" y2="12"/>
+                    </svg>
+                    Log Out
+                </a>
             </nav>
-
         </div>
     </div>
 
@@ -200,8 +217,7 @@
             </p>
         </div>
         
-        <!-- Messages will like show here-->
-    </div>
+        </div>
 
 
     <div id="input-area-wrapper" class="flex justify-center p-4">
@@ -226,22 +242,19 @@
         </div>
     </div>
 
-    <!-- JS part of this shi-->
     <script>
         const apiKey = "AIzaSyA2RZfj5OvgEg74eINzLu7zMRh26ylIvrE"; 
         const textModelName = "gemini-2.5-flash-preview-05-20";
         const ttsModelName = "gemini-2.5-flash-preview-tts";
         const textApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${textModelName}:generateContent?key=${apiKey}`;
-        const ttsApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${ttsModelName}:generateContent?key=${apiKey}`;
+        const ttsApiUrl = `https://generativelangugae.googleapis.com/v1beta/models/${ttsModelName}:generateContent?key=${apiKey}`;
         const ttsVoice = "Kore"; 
 
-        // UI Elements Ref 
         const chatHistory = document.getElementById('chat-history');
         const userInput = document.getElementById('user-input');
         const sendButton = document.getElementById('send-button');
         const welcomeScreen = document.getElementById('welcome-screen');
 
-        // State
         let isSending = false;
         let audioContext;
         let currentAudio = null; 
@@ -326,13 +339,13 @@
             writeString(view, offset, 'WAVE'); offset += 4;
 
             writeString(view, offset, 'fmt '); offset += 4;
-            view.setUint32(offset, 16, true); offset += 4;      
-            view.setUint16(offset, 1, true); offset += 2;      
+            view.setUint32(offset, 16, true); offset += 4; 
+            view.setUint16(offset, 1, true); offset += 2; 
             view.setUint16(offset, numChannels, true); offset += 2;
             view.setUint32(offset, sampleRate, true); offset += 4;
             view.setUint32(offset, byteRate, true); offset += 4;
             view.setUint16(offset, blockAlign, true); offset += 2;
-            view.setUint16(offset, 16, true); offset += 2;     
+            view.setUint16(offset, 16, true); offset += 2; 
 
             writeString(view, offset, 'data'); offset += 4;
             view.setUint32(offset, dataSize, true); offset += 4; 
@@ -437,24 +450,18 @@
             } 
         }
         
-        /**
-         * Wrapper function to handle the TTS toggle logic.
-         */
         function speakTextFromButton(buttonElement) {
             const textToSpeak = buttonElement.getAttribute('data-text');
             
             if (currentPlayingButton === buttonElement && currentAudio) {
-             
+                
                 stopCurrentAudio();
             } else if (textToSpeak) {
-               
+                
                 speakText(textToSpeak, buttonElement);
             }
         }
 
-
-        // --- UI & API Core Logic ---
-        
 
         function createAvatar(sender) {
             const avatar = document.createElement('div');
@@ -463,7 +470,7 @@
             avatar.className = `flex items-center justify-center w-8 h-8 rounded-full font-bold text-base flex-shrink-0 shadow-md ${
                 isUser 
                 ? 'bg-indigo-500 text-white' 
-                : 'bg-gray-900 text-white' /* AI avatar background */
+                : 'bg-gray-900 text-white' 
             }`;
             
             if (isUser) {
@@ -493,23 +500,41 @@
             messageBubble.className = `p-4 rounded-xl max-w-[80%] shadow-xl relative transition-all duration-300 ${
                 isUser 
                 ? 'bg-indigo-600 text-white rounded-br-sm text-lg' 
-                : 'ai-message rounded-tl-sm pb-12 pr-12' /* Added padding for TTS button */
+                : 'ai-message rounded-tl-sm pb-12 pr-12' 
             }`;
             
-            const displayedHtml = text.replace(/\n/g, '<br>');
-            messageBubble.innerHTML = displayedHtml;
+            let htmlToDisplay;
+            let ttsText = text.trim(); 
             
+            if (isUser) {
+                
+                htmlToDisplay = text.replace(/\n/g, '<br>');
+            } else if (typeof marked !== 'undefined') {
+                
+                htmlToDisplay = marked.parse(text);
+                
+                
+                ttsText = ttsText
+                    .replace(/\$\$([\s\S]*?)\$\$/g, ' equation ') 
+                    .replace(/\$([^\$]*?)\$/g, ' equation ') 
+                    .replace(/([*_~])/g, '') 
+                    .replace(/&quot;/g, '"'); 
+            } else {
+                
+                htmlToDisplay = text.replace(/\n/g, '<br>');
+            }
+            
+            messageBubble.innerHTML = htmlToDisplay;
+
             const avatar = createAvatar(sender);
 
             if (isUser) {
                 messageWrapper.appendChild(messageBubble);
                 messageWrapper.appendChild(avatar);
             } else {
-                const ttsText = text.replace(/\$/g, '').replace(/"/g, '&quot;').replace(/\n/g, ' '); 
-                
                 const ttsButtonHtml = `
                     <button onclick="speakTextFromButton(this)" 
-                            data-text="${ttsText}"
+                            data-text="${ttsText.replace(/"/g, '&quot;')}"
                             title="Play Audio"
                             class="tts-button absolute bottom-3 right-3 w-7 h-7 flex items-center justify-center rounded-full bg-indigo-600 text-white shadow-xl focus:outline-none focus:ring-2 focus:ring-indigo-300">
                         ${getSpeakerIconHtml()}
@@ -524,16 +549,17 @@
             chatHistory.appendChild(messageWrapper);
             
             if (!isUser && typeof renderMathInElement !== 'undefined') {
-                 renderMathInElement(messageBubble, {
+                
+                renderMathInElement(messageBubble, {
                     delimiters: [
-                        { left: "$$", right: "$$", display: true }, // Block math
-                        { left: "$", right: "$", display: false }   // Inline math
+                        { left: "$$", right: "$$", display: true }, 
+                        { left: "$", right: "$", display: false } 
                     ],
                     throwOnError: false
                 });
             }
             
-            // Auto-scroll to the bottom with a smooth animation
+            
             chatHistory.scrollTo({
                 top: chatHistory.scrollHeight,
                 behavior: 'smooth'
@@ -565,11 +591,9 @@
         
         
         window.onload = () => {
-             sendButton.innerHTML = getSendIconHtml(); 
+            sendButton.innerHTML = getSendIconHtml(); 
         };
 
-
-        // --- Main Chat Logic ---
 
         async function sendMessage() {
             if (isSending) return;
@@ -627,14 +651,13 @@
                 sendButton.disabled = false;
                 sendButton.innerHTML = getSendIconHtml(); 
                 
-                // 5. Render message
+                
                 renderMessage(aiResponseText, 'ai');
             }
         }
 
-        // --- Event Listeners ---
 
-        // Handle Enter key for quick sending
+        
         userInput.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault(); 
@@ -642,13 +665,13 @@
             }
         });
         
-        // Auto-resize textarea height
+        
         userInput.addEventListener('input', () => {
             userInput.style.height = 'auto';
             userInput.style.height = userInput.scrollHeight + 'px';
         });
 
-        // Initialize AudioContext on user interaction
+        
         document.body.addEventListener('click', () => {
             if (!audioContext) {
                 audioContext = new (window.AudioContext || window.webkitAudioContext)();

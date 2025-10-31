@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Auxi — About Us</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index,follow" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-auxi': '#22d3ee',
+                        'secondary-auxi': '#a78bfa',
+                        'accent-auxi': '#34d399',
+                        'background-dark': '#0b0f14',
+                        'card-dark': '#12161f',
+                        'heading-color': '#f1f5f9',
+                        'text-light': '#e5e7eb',
+                        'dark-contrast': '#061018',
+                        'border-color': '#1a212c',
+                        'sdg-4': '#00a94d',
+                        'sdg-3': '#00b8d9',
+                        'sdg-9': '#f48120',
+                        'sdg-10': '#dd1367',
+                        'pastel-green': '#a7f3d0',
+                        'pastel-pink': '#fbcfe8',
+                        'pastel-blue': '#bae6fd',
+                        'pastel-peach': '#fed7aa',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    },
+                    fontSize: {
+                        'h1-custom': '42px',
+                        'h2-custom': '28px',
+                    },
+                    spacing: {
+                        '100': '6.25rem',
+                    }
+                },
+            }
+        }
+    </script>
+    <style>
+        .gjs-t-body {
+            line-height: 1.7; 
+            font-size: 16px; 
+        }
+        .gradient-120-dark {
+            background: linear-gradient(120deg, #0b0f14 50%, #172430 50%);
+            background-attachment: fixed;
+        }
+        .gjs-t-h1 {
+            font-size: 42px; 
+            line-height: 1.2;
+            font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+        }
+        .gjs-t-h2 {
+            font-size: 28px;
+            line-height: 1.3;
+            font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+        }
+        a, button {
+            transition: all 0.3s ease-in-out;
+        }
+        .feature-card {
+            background-color: #12161f;
+            border: 1px solid #1a212c;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(34, 211, 238, 0.15);
+        }
+        .glow-divider {
+            height: 2px;
+            width: 100px;
+            background-color: #22d3ee;
+            box-shadow: 0 0 10px #22d3ee;
+        }
+        .team-card-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(167, 139, 250, 0.2);
+        }
+        .nav-link {
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            color: #e5e7eb;
+            transition: color 0.2s, background-color 0.2s;
+        }
+        .nav-link:hover {
+            color: #ffffff;
+            background-color: #1f2937; 
+        }
+        
+        .nav-link.active {
+            color: #4f46e5; 
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body class="gradient-120-dark text-text-light font-sans antialiased min-h-screen flex flex-col gjs-t-body overflow-x-hidden">
+
+    <header class="bg-background-dark/95 backdrop-blur-sm sticky top-0 z-50 shadow-xl shadow-black/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
+            <a href="./homepage.html" class="flex items-center space-x-2 text-heading-color hover:opacity-90 transition-opacity">
+                <div class="w-8 h-8 flex items-center justify-center">
+                    <img src="https://api.iconify.design/lucide-book.svg?color=%23f8fafc" alt="Auxi logo - minimal book" class="w-7 h-7" />
+                </div>
+                <span class="text-2xl font-bold font-heading tracking-tight">Auxi</span>
+            </a>
+            
+            <nav class="flex space-x-2 sm:space-x-4 text-sm font-medium">
+                <a href="./homepage.html" class="nav-link hidden sm:block">Home</a>
+                <a href="./auxichat.html" class="nav-link hidden sm:block">Auxi Chat</a>
+                <a href="./quiz.html" class="nav-link hidden sm:block">Quiz</a>
+                <a href="./shop.html" class="nav-link hidden sm:block">Shop</a>
+                <a href="./about-ush.html" class="nav-link active">About Us</a>
+                <a href="./index.html" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-3 rounded-lg shadow-md transition duration-300 flex items-center gap-1.5 whitespace-nowrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" x2="9" y1="12" y2="12"/>
+                    </svg>
+                    Log Out
+                </a>
+            </nav> 
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <section class="max-w-4xl mx-auto text-center py-16 px-4 sm:py-24">
+            <h1 class="gjs-t-h1 font-heading text-heading-color text-5xl md:text-7xl font-extrabold leading-tight tracking-tighter">
+                Our Mission: <span class="text-secondary-auxi">Amplify Every Voice</span> in the Classroom.
+            </h1>
+            <p class="mt-6 text-xl text-gray-400 max-w-2xl mx-auto">
+                We build technology that removes barriers, celebrates neurodiversity, and makes exceptional learning accessible to all.
+            </p>
+        </section>
+
+        <section class="py-16 px-4 bg-dark-contrast border-t border-b border-border-color">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="gjs-t-h2 font-heading text-heading-color font-bold mb-3">The Auxi Philosophy</h2>
+                    <div class="glow-divider mx-auto"></div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    
+                    <div class="feature-card p-6 rounded-xl hover:border-sdg-4/50">
+                        <img src="https://api.iconify.design/lucide-type.svg?color=%2300a94d" alt="Dyslexia icon" class="w-10 h-10 mb-4 text-sdg-4"/>
+                        <h3 class="text-xl font-heading font-semibold text-sdg-4 mb-2">Dyslexia Support</h3>
+                        <p class="text-gray-400">
+                            Includes text-to-speech functionality, dyslexia-friendly font options, and reduced visual clutter to significantly aid reading and comprehension.
+                        </p>
+                    </div>
+
+                    <div class="feature-card p-6 rounded-xl hover:border-sdg-3/50">
+                        <img src="https://api.iconify.design/lucide-brain-cog.svg?color=%2300b8d9" alt="ADHD icon" class="w-10 h-10 mb-4 text-sdg-3"/>
+                        <h3 class="text-xl font-heading font-semibold text-sdg-3 mb-2">ADHD Focus Assistance</h3>
+                        <p class="text-gray-400">
+                            Breaks down complex material into micro-learning modules, employs text chunking, and provides interactive summaries to maintain focus and prevent cognitive overload.
+                        </p>
+                    </div>
+
+                    <div class="feature-card p-6 rounded-xl hover:border-sdg-9/50">
+                        <img src="https://api.iconify.design/lucide-globe.svg?color=%23f48120" alt="Accessibility icon" class="w-10 h-10 mb-4 text-sdg-9"/>
+                        <h3 class="text-xl font-heading font-semibold text-sdg-9 mb-2">Global Accessibility</h3>
+                        <p class="text-gray-400">
+                            Guarantees full compatibility with standard screen readers and enhanced keyboard navigation, ensuring access regardless of the user's assistive technology.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 px-4">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
+                
+                <div class="lg:order-1">
+                    <h3 class="gjs-t-h2 font-heading font-bold text-heading-color mb-3 border-b border-border-color pb-3">
+                        Meet Our <span class="text-secondary-auxi">Founding Team</span>
+                    </h3>
+                    <p class="text-lg text-gray-400 mb-6">
+                        The people behind Auxi’s inclusive, learner-first experience : We, a Group of teenagers from Bright Riders School, Abu Dhabi, driven by curiosity and innovation.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-6">
+                        
+                        <article class="bg-card-dark p-4 rounded-xl text-center border border-pastel-blue/50 team-card-hover transition duration-300">
+                            <img src="https://placehold.co/80x80/bae6fd/0b0f14?text=KK" alt="Kanish Kannan" class="w-20 h-20 rounded-full mx-auto mb-3 object-cover border-2 border-pastel-blue"/>
+                            <p class="text-lg font-semibold text-heading-color leading-tight">Kanish Kannan</p>
+                            <p class="text-xs text-gray-500 mt-1">Main Editor / Content Curator</p>
+                        </article>
+
+                        <article class="bg-card-dark p-4 rounded-xl text-center border border-pastel-pink/50 team-card-hover transition duration-300">
+                            <img src="https://placehold.co/80x80/fbcfe8/0b0f14?text=DB" alt="Divya Bhosale" class="w-20 h-20 rounded-full mx-auto mb-3 object-cover border-2 border-pastel-pink"/>
+                            <p class="text-lg font-semibold text-heading-color leading-tight">Divya Bhosale</p>
+                            <p class="text-xs text-gray-500 mt-1">Main Developer / Team Lead</p>
+                        </article>
+
+                        <article class="bg-card-dark p-4 rounded-xl text-center border border-pastel-green/50 team-card-hover transition duration-300">
+                            <img src="https://placehold.co/80x80/a7f3d0/0b0f14?text=RK" alt="Rehan Khan" class="w-20 h-20 rounded-full mx-auto mb-3 object-cover border-2 border-pastel-green"/>
+                            <p class="text-lg font-semibold text-heading-color leading-tight">Rehan Khan</p>
+                            <p class="text-xs text-gray-500 mt-1">Backend Developer / DB Lead</p>
+                        </article>
+
+                        <article class="bg-card-dark p-4 rounded-xl text-center border border-pastel-peach/50 team-card-hover transition duration-300">
+                            <img src="https://placehold.co/80x80/fed7aa/0b0f14?text=SS" alt="Sai Sanjana Chilluri" class="w-20 h-20 rounded-full mx-auto mb-3 object-cover border-2 border-pastel-peach"/>
+                            <p class="text-lg font-semibold text-heading-color leading-tight">Sai Sanjana Chilluri</p>
+                            <p class="text-xs text-gray-500 mt-1">Research / Documentation</p>
+                        </article>
+                    </div>
+                </div>
+                
+                <div class="lg:order-2">
+                    <h2 class="gjs-t-h2 font-heading text-heading-color font-bold mb-3 border-b border-border-color pb-3">
+                        Our Global Commitment: <span class="text-primary-auxi">The UN SDGs</span>
+                    </h2>
+                    <p class="text-lg text-gray-400 mb-6">
+                        Our dedication extends beyond technology. Auxi is fundamentally aligned with the United Nations Sustainable Development Goals, driving impact in key areas of global equity and well-being.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        
+                        <article class="bg-card-dark p-4 rounded-xl text-center border border-sdg-4/50 team-card-hover transition duration-300">
+                            <img src="https://api.iconify.design/lucide-graduation-cap.svg?color=%2300a94d" alt="Icon for SDG 4" class="w-12 h-12 mb-3 mx-auto p-2 border-2 rounded-full border-sdg-4 bg-sdg-4/10"/>
+                            <p class="text-lg font-semibold text-heading-color leading-tight">SDG 4: Quality Education</p>
+                            <p class="text-xs text-gray-500 mt-1">Ensuring inclusive and equitable quality education for all.</p>
+                        </article>
+
+                        <article class="bg-card-dark p-4 rounded-xl text-center border border-sdg-3/50 team-card-hover transition duration-300">
+                            <img src="https://api.iconify.design/lucide-heart-pulse.svg?color=%2300b8d9" alt="Icon for SDG 3" class="w-12 h-12 mb-3 mx-auto p-2 border-2 rounded-full border-sdg-3 bg-sdg-3/10"/>
+                            <p class="text-lg font-semibold text-heading-color leading-tight">SDG 3: Good Health & Well-being</p>
+                            <p class="text-xs text-gray-500 mt-1">Promoting mental well-being through inclusive, low-stress learning.</p>
+                        </article>
+
+                        <article class="bg-card-dark p-4 rounded-xl text-center border border-sdg-10/50 team-card-hover transition duration-300">
+                            <img src="https://api.iconify.design/lucide-users.svg?color=%23dd1367" alt="Icon for SDG 10" class="w-12 h-12 mb-3 mx-auto p-2 border-2 rounded-full border-sdg-10 bg-sdg-10/10"/>
+                            <p class="text-lg font-semibold text-heading-color leading-tight">SDG 10: Reduced Inequalities</p>
+                            <p class="text-xs text-gray-500 mt-1">Reducing learning gaps caused by disability or reading challenges.</p>
+                        </article>
+
+                        <article class="bg-card-dark p-4 rounded-xl text-center border border-sdg-9/50 team-card-hover transition duration-300">
+                            <img src="https://api.iconify.design/lucide-lightbulb.svg?color=%23f48120" alt="Icon for SDG 9" class="w-12 h-12 mb-3 mx-auto p-2 border-2 rounded-full border-sdg-9 bg-sdg-9/10"/>
+                            <p class="text-lg font-semibold text-heading-color leading-tight">SDG 9: Innovation & Infrastructure</p>
+                            <p class="text-xs text-gray-500 mt-1">Building inclusive and sustainable learning technologies.</p>
+                        </article>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="py-20 px-4 bg-card-dark border-t border-border-color">
+            <div class="max-w-4xl mx-auto text-center p-8 rounded-xl border border-primary-auxi/50 shadow-2xl shadow-primary-auxi/10">
+                <h2 class="gjs-t-h2 font-heading text-heading-color font-bold mb-4">
+                    Join the Movement for <span class="text-accent-auxi">Equitable Education</span>
+                </h2>
+                <p class="text-lg text-gray-400 mb-8">
+                    Ready to experience a truly inclusive way to learn? Sign up today and see how Auxi can transform your educational journey.
+                </p>
+                <a href="./signup.html" class="px-8 py-3 rounded-full font-semibold text-lg bg-primary-auxi text-dark-contrast hover:bg-cyan-300 shadow-xl shadow-primary-auxi/40 transition-transform hover:scale-[1.02]">
+                    Get Started with Auxi
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-background-dark py-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-sm">
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-2">
+                    <div class="flex items-center justify-center">
+                        <img src="https://api.iconify.design/lucide-book.svg?color=%23e5e7eb" alt="Auxi logo" class="w-6 h-6"/>
+                    </div>
+                    <span class="text-xl font-heading font-bold text-heading-color">Auxi</span>
+                    <small class="text-gray-500">© 2025</small>
+                </div>
+            </div>
+
+            <div class="flex space-x-6 text-gray-400">
+                <a href="./about-ush.html" class="hover:text-primary-auxi transition text-primary-auxi font-semibold">About</a>
+                <a href="#" class="hover:text-primary-auxi transition">Privacy</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

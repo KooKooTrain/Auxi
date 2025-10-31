@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://cdn.tailwindcss.com">
+
+    tailwind.config = {
+        theme: {
+        extend: {
+            colors: {
+            'primary-blue': '#06B6D4',
+            'bg-dark': '#0F172A',
+            'card-dark': '#1F2937',
+            },
+            fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            outfit: ['Outfit', 'sans-serif'],
+            },
+        }
+        }
+    }
+
+    </script>
+    <style>
+
+
+        .nav-link {
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            color: #e5e7eb;
+            transition: color 0.2s, background-color 0.2s;
+        }
+        .nav-link:hover {
+            color: #ffffff;
+            background-color: #1f2937; 
+        }
+    
+        .nav-link.active {
+            color: #4f46e5; 
+            font-weight: 600;
+        }
+
+        body {
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            background: radial-gradient(circle at center, rgba(24, 37, 69, 0.8) 10%, #08101a 75%);
+            background-attachment: fixed;
+        }
+        .gradient-120-dark {
+            background: linear-gradient(180deg, #0b0f14 50%, #172430 100%);
+            background-attachment: fixed;
+        }
+    </style>
+    <title>Shop — Spend Study Points on Digital Profile Items</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index,follow">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&display=swap" rel="stylesheet" />
+</head>
+
+<body id="shop-page" class="bg-gray-900 text-gray-100 font-sans min-h-screen">
+
+    <header class="bg-background-dark/95 backdrop-blur-sm sticky top-0 z-50 shadow-xl shadow-black/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
+            <a href="./homepage.html" class="flex items-center space-x-2 text-heading-color hover:opacity-90 transition-opacity">
+                <div class="w-8 h-8 flex items-center justify-center">
+                    <img src="https://api.iconify.design/lucide-book.svg?color=%23f8fafc" alt="Auxi logo - minimal book" class="w-7 h-7" />
+                </div>
+                <span class="text-2xl font-bold font-heading tracking-tight">Auxi</span>
+            </a>
+            
+            <nav class="flex space-x-2 sm:space-x-4 text-sm font-medium">
+                <a href="./homepage.html" class="nav-link hidden sm:block">Home</a>
+                <a href="./auxichat.html" class="nav-link hidden sm:block">Auxi Chat</a>
+                <a href="./quiz.html" class="nav-link hidden sm:block">Quiz</a>
+                <a href="./shop.html" class="nav-link active">Shop</a>
+                <a href="./about-ush.html" class="nav-link hidden sm:block">About Us</a>
+                <a href="./index.html" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-3 rounded-lg shadow-md transition duration-300 flex items-center gap-1.5 whitespace-nowrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" x2="9" y1="12" y2="12"/>
+                    </svg>
+                    Log Out
+                </a>
+            </nav> 
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-24">
+        <section class="mb-20">
+            <div class="max-w-4xl">
+                <h1 class="font-outfit text-4xl sm:text-5xl font-bold text-white leading-tight mb-6">
+                    <span class="text-cyan-500">Auxi Shop -</span> Ready to customize your profile?
+                </h1>
+                <p class="text-gray-400 text-lg mb-8">
+                    Earn points by studying and taking quizzes, then spend them on digital goodies like profile pictures, banners, and stickers. No real money needed, just your effort and brainpower.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 items-start sm:items-center">
+                    <a href="#featured" class="flex items-center space-x-2 px-6 py-3 bg-cyan-600 text-white font-semibold rounded-xl shadow-lg hover:bg-cyan-500 transition duration-300 transform hover:scale-[1.01]">
+                        <span>Browse Featured</span>
+                        <img src="https://api.iconify.design/lucide-arrow-right.svg?color=%23ffffff" alt="" class="w-5 h-5" />
+                    </a>
+                    <a href="#how-it-works" class="flex items-center space-x-2 text-cyan-500 font-medium hover:text-cyan-400 transition duration-300">
+                        <span>How earning works</span>
+                        <img src="https://api.iconify.design/lucide-info.svg?color=%2306B6D4" alt="" class="w-5 h-5" />
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="featured" class="mb-24">
+            <div class="flex justify-between items-center mb-10">
+                <h2 class="font-outfit text-3xl font-bold text-white">Auxi Shop Special Features</h2>
+                <a href="#categories" class="text-cyan-500 font-medium hover:text-cyan-400 transition duration-300 hidden sm:block">Browse by category &rarr;</a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <article class="bg-gray-800 rounded-2xl shadow-xl border border-gray-700 overflow-hidden relative group">
+                    <figure class="product-media aspect-[4/3] w-full relative">
+                        <span class="absolute top-4 left-4 bg-black/60 text-gray-200 text-xs font-medium px-3 py-1 rounded-full flex items-center space-x-1 backdrop-blur-sm">
+                            <img src="https://api.iconify.design/lucide-user-circle-2.svg?color=%23d1d5db" alt="" class="w-3.5 h-3.5" />
+                            <span>Profile Pictures</span>
+                        </span>
+                        <img loading="lazy" src="./assets/Neon_geometric_avatars.jpeg" alt="Neon geometric avatar pack preview" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
+                    </figure>
+                    <div class="p-5 flex flex-col justify-between h-auto">
+                        <div>
+                            <h3 class="product-name font-semibold text-xl text-white mb-2">Neon Geometric Avatars (Set of 12)</h3>
+                            <p class="product-description text-gray-400 text-sm mb-4">Bright, high-contrast avatars that make your profile pop. Great for dark mode.</p>
+                        </div>
+                        <div class="product-actions flex justify-between items-center pt-3 border-t border-gray-700/50">
+                            <span class="product-price text-xl font-bold text-cyan-500">250 pts</span>
+                            <button type="button" class="buy-button px-5 py-2.5 bg-cyan-600 text-white font-semibold rounded-lg hover:bg-cyan-500 transition duration-300 transform hover:-translate-y-0.5 shadow-md shadow-cyan-900/50">
+                                Buy for 250 pts
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bg-gray-800 rounded-2xl shadow-xl border border-gray-700 overflow-hidden relative group">
+                    <figure class="product-media aspect-[4/3] w-full relative">
+                        <span class="absolute top-4 left-4 bg-black/60 text-gray-200 text-xs font-medium px-3 py-1 rounded-full flex items-center space-x-1 backdrop-blur-sm">
+                            <img src="https://api.iconify.design/lucide-user-round.svg?color=%23d1d5db" alt="" class="w-3.5 h-3.5" />
+                            <span>Profile Pictures</span>
+                        </span>
+                        <img loading="lazy" src="./assets/pastel_avatars.jpeg" alt="Pastel minimal avatar pack preview" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
+                    </figure>
+                    <div class="p-5 flex flex-col justify-between h-auto">
+                        <div>
+                            <h3 class="product-name font-semibold text-xl text-white mb-2">Pastel Minimal Avatars (Set of 10)</h3>
+                            <p class="product-description text-gray-400 text-sm mb-4">Soft, calming tones designed for focus and readability on any screen.</p>
+                        </div>
+                        <div class="product-actions flex justify-between items-center pt-3 border-t border-gray-700/50">
+                            <span class="product-price text-xl font-bold text-cyan-500">220 pts</span>
+                            <button type="button" class="buy-button px-5 py-2.5 bg-cyan-600 text-white font-semibold rounded-lg hover:bg-cyan-500 transition duration-300 transform hover:-translate-y-0.5 shadow-md shadow-cyan-900/50">
+                                Buy for 220 pts
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bg-gray-800 rounded-2xl shadow-xl border border-gray-700 overflow-hidden relative group">
+                    <figure class="product-media aspect-[4/3] w-full relative">
+                        <span class="absolute top-4 left-4 bg-black/60 text-gray-200 text-xs font-medium px-3 py-1 rounded-full flex items-center space-x-1 backdrop-blur-sm">
+                            <img src="https://api.iconify.design/lucide-layout-dashboard.svg?color=%23d1d5db" alt="" class="w-3.5 h-3.5" />
+                            <span>UI Theme</span>
+                        </span>
+                        <img loading="lazy" src="./assets/dark_ui.jpeg" alt="Focus mode dashboard theme preview" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
+                    </figure>
+                    <div class="p-5 flex flex-col justify-between h-auto">
+                        <div>
+                            <h3 class="product-name font-semibold text-xl text-white mb-2">Focus Mode Dashboard Theme</h3>
+                            <p class="product-description text-gray-400 text-sm mb-4">A custom, low-contrast dark mode theme to help reduce eye strain while studying.</p>
+                        </div>
+                        <div class="product-actions flex justify-between items-center pt-3 border-t border-gray-700/50">
+                            <span class="product-price text-xl font-bold text-cyan-500">300 pts</span>
+                            <button type="button" class="buy-button px-5 py-2.5 bg-cyan-600 text-white font-semibold rounded-lg hover:bg-cyan-500 transition duration-300 transform hover:-translate-y-0.5 shadow-md shadow-cyan-900/50">
+                                Buy for 300 pts
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bg-gray-800 rounded-2xl shadow-xl border border-gray-700 overflow-hidden relative group">
+                    <figure class="product-media aspect-[4/3] w-full relative">
+                        <span class="absolute top-4 left-4 bg-black/60 text-gray-200 text-xs font-medium px-3 py-1 rounded-full flex items-center space-x-1 backdrop-blur-sm">
+                            <img src="https://api.iconify.design/lucide-medal.svg?color=%23d1d5db" alt="" class="w-3.5 h-3.5" />
+                            <span>Stickers/Badges</span>
+                        </span>
+                        <img loading="lazy" src="./assets/academic_stickers.jpeg" alt="Academic badge pack preview" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
+                    </figure>
+                    <div class="p-5 flex flex-col justify-between h-auto">
+                        <div>
+                            <h3 class="product-name font-semibold text-xl text-white mb-2">Academic Badge Pack</h3>
+                            <p class="product-description text-gray-400 text-sm mb-4">Set of 6 animated badges to display your favorite subjects or academic interests.</p>
+                        </div>
+                        <div class="product-actions flex justify-between items-center pt-3 border-t border-gray-700/50">
+                            <span class="product-price text-xl font-bold text-cyan-500">150 pts</span>
+                            <button type="button" class="buy-button px-5 py-2.5 bg-cyan-600 text-white font-semibold rounded-lg hover:bg-cyan-500 transition duration-300 transform hover:-translate-y-0.5 shadow-md shadow-cyan-900/50">
+                                Buy for 150 pts
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bg-gray-800 rounded-2xl shadow-xl border border-gray-700 overflow-hidden relative group">
+                    <figure class="product-media aspect-[4/3] w-full relative">
+                        <span class="absolute top-4 left-4 bg-black/60 text-gray-200 text-xs font-medium px-3 py-1 rounded-full flex items-center space-x-1 backdrop-blur-sm">
+                            <img src="https://api.iconify.design/lucide-sticker.svg?color=%23d1d5db" alt="" class="w-3.5 h-3.5" />
+                            <span>Stickers</span>
+                        </span>
+                        <img loading="lazy" src="./assets/study_stickers.jpeg" alt="Study streak sticker pack preview" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
+                    </figure>
+                    <div class="p-5 flex flex-col justify-between h-auto">
+                        <div>
+                            <h3 class="product-name font-semibold text-xl text-white mb-2">Study Streak Stickers</h3>
+                            <p class="product-description text-gray-400 text-sm mb-4">Celebrate consecutive study days with bold, motivational badges for your profile.</p>
+                        </div>
+                        <div class="product-actions flex justify-between items-center pt-3 border-t border-gray-700/50">
+                            <span class="product-price text-xl font-bold text-cyan-500">120 pts</span>
+                            <button type="button" class="buy-button px-5 py-2.5 bg-cyan-600 text-white font-semibold rounded-lg hover:bg-cyan-500 transition duration-300 transform hover:-translate-y-0.5 shadow-md shadow-cyan-900/50">
+                                Buy for 120 pts
+                            </button>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="bg-gray-800 rounded-2xl shadow-xl border border-gray-700 overflow-hidden relative group">
+                    <figure class="product-media aspect-[4/3] w-full relative">
+                        <span class="absolute top-4 left-4 bg-black/60 text-gray-200 text-xs font-medium px-3 py-1 rounded-full flex items-center space-x-1 backdrop-blur-sm">
+                            <img src="https://api.iconify.design/lucide-sticker.svg?color=%23d1d5db" alt="" class="w-3.5 h-3.5" />
+                            <span>Stickers</span>
+                        </span>
+                        <img loading="lazy" src="./assets/focus_stickers.jpeg" alt="Focus mode sticker pack preview" class="w-full h-full object-cover transition duration-500 group-hover:scale-105" />
+                    </figure>
+                    <div class="p-5 flex flex-col justify-between h-auto">
+                        <div>
+                            <h3 class="product-name font-semibold text-xl text-white mb-2">Focus Mode Stickers</h3>
+                            <p class="product-description text-gray-400 text-sm mb-4">Minimal icons to show your current mode: focus, break, or review status to others.</p>
+                        </div>
+                        <div class="product-actions flex justify-between items-center pt-3 border-t border-gray-700/50">
+                            <span class="product-price text-xl font-bold text-cyan-500">120 pts</span>
+                            <button type="button" class="buy-button px-5 py-2.5 bg-cyan-600 text-white font-semibold rounded-lg hover:bg-cyan-500 transition duration-300 transform hover:-translate-y-0.5 shadow-md shadow-cyan-900/50">
+                                Buy for 120 pts
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="categories" class="mb-24">
+            <h2 class="font-outfit text-3xl font-bold text-white mb-10">Categories</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <article class="bg-gray-800 p-6 rounded-xl border border-gray-700 flex space-x-4 items-start hover:border-cyan-600 transition duration-300">
+                    <img src="https://api.iconify.design/lucide-user-circle-2.svg?color=%2306B6D4" alt="Profile Pictures icon" class="w-8 h-8 flex-shrink-0 mt-1" />
+                    <div class="category-content">
+                        <h3 class="category-name font-semibold text-xl text-white mb-1">Profile Pictures</h3>
+                        <p class="category-description text-gray-400">Avatar packs to refresh your look. Choose styles that improve visibility and fit your vibe.</p>
+                    </div>
+                </article>
+                
+                <article class="bg-gray-800 p-6 rounded-xl border border-gray-700 flex space-x-4 items-start hover:border-cyan-600 transition duration-300">
+                    <img src="https://api.iconify.design/lucide-layout-dashboard.svg?color=%2306B6D4" alt="UI Theme icon" class="w-8 h-8 flex-shrink-0 mt-1" />
+                    <div class="category-content">
+                        <h3 class="category-name font-semibold text-xl text-white mb-1">UI Themes</h3>
+                        <p class="category-description text-gray-400">Custom color schemes and layouts to change the look and feel of your main dashboard.</p>
+                    </div>
+                </article>
+
+                <article class="bg-gray-800 p-6 rounded-xl border border-gray-700 flex space-x-4 items-start hover:border-cyan-600 transition duration-300">
+                    <img src="https://api.iconify.design/lucide-sticker.svg?color=%2306B6D4" alt="Stickers icon" class="w-8 h-8 flex-shrink-0 mt-1" />
+                    <div class="category-content">
+                        <h3 class="category-name font-semibold text-xl text-white mb-1">Stickers & Badges</h3>
+                        <p class="category-description text-gray-400">Add personality with badges for streaks, goals, and achievements on your profile.</p>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section id="how-it-works" class="mb-24">
+            <div class="how-it-works-container">
+                <div class="bg-gray-800 p-8 sm:p-12 rounded-2xl border-4 border-dashed border-cyan-600/50 flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-8">
+                    <img src="https://api.iconify.design/lucide-trophy.svg?color=%2306B6D4" alt="Trophy icon" class="w-10 h-10 flex-shrink-0" />
+                    <div class="how-it-works-content">
+                        <h3 class="how-it-works-title font-semibold text-2xl text-white mb-4">Earn by studying, spend on customization</h3>
+                        <p class="how-it-works-text text-gray-400 mb-6">
+                            You collect points by completing study sessions, streaks, and tasks. Use those points to unlock digital items in the shop. It’s simple: the more you study, the more you can personalize your profile—no cash, ever.
+                        </p>
+                        <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-6 items-start sm:items-center">
+                            <a href="./auxichat.html" class="flex items-center space-x-2 px-6 py-3 bg-cyan-600 text-white font-semibold rounded-xl shadow-lg hover:bg-cyan-500 transition duration-300">
+                                <span>Open AuxiChat</span>
+                                <img src="https://api.iconify.design/lucide-message-square.svg?color=%23ffffff" alt="" class="w-5 h-5" />
+                            </a>
+                            <a href="./about-ush.html" class="flex items-center space-x-2 text-cyan-500 font-medium hover:text-cyan-400 transition duration-300">
+                                <span>Learn more</span>
+                                <img src="https://api.iconify.design/lucide-arrow-right.svg?color=%2306B6D4" alt="" class="w-5 h-5" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="final-call-to-action-section">
+            <div class="final-cta-container flex flex-col sm:flex-row justify-between items-start sm:items-center p-8 sm:p-12 bg-gray-800 rounded-2xl border border-gray-700">
+                <div class="final-cta-text-group max-w-xl mb-6 sm:mb-0">
+                    <h2 class="final-cta-title font-outfit text-3xl font-bold text-white mb-2">Spend your study points, not money</h2>
+                    <p class="final-cta-subtitle text-gray-400">Use your study points to unlock themes, avatars, and stickers that reflect your progress.</p>
+                </div>
+                <div class="final-cta-actions flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                    <a href="#featured" class="flex items-center space-x-2 px-6 py-3 bg-cyan-600 text-white font-semibold rounded-xl hover:bg-cyan-500 transition duration-300">
+                        <span>Shop featured</span>
+                        <img src="https://api.iconify.design/lucide-shopping-bag.svg?color=%23ffffff" alt="" class="w-5 h-5" />
+                    </a>
+                    <a href="./auxichat.html" class="flex items-center space-x-2 px-6 py-3 border border-gray-600 text-cyan-500 font-semibold rounded-xl hover:bg-gray-700 transition duration-300">
+                        <span>Earn more points</span>
+                        <img src="https://api.iconify.design/lucide-flame.svg?color=%2306B6D4" alt="" class="w-5 h-5" />
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-background-dark py-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-sm">
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-2 text-heading-color">
+                    <img src="https://api.iconify.design/lucide-book.svg?color=%23f8fafc" alt="Auxi logo" class="w-6 h-6" />
+                    <span class="text-xl font-heading font-bold">Auxi</span>
+                    <small class="text-text-soft/50">© 2025</small>
+                </div>
+            </div>
+
+            <div class="flex space-x-6 text-text-soft">
+                <a href="./about-ush.html" class="hover:text-primary-action transition">About</a>
+                <a href="#" class="hover:text-primary-action transition">Privacy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggle = document.getElementById('menu-toggle');
+            const panel = document.getElementById('mobile-menu-panel');
+
+            if (toggle && panel) {
+                toggle.addEventListener('click', () => {
+                    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+                    toggle.setAttribute('aria-expanded', String(!expanded));
+                    
+                    if (!expanded) {
+                        panel.classList.remove('hidden');
+                        panel.setAttribute('aria-hidden', 'false');
+                    } else {
+                        panel.classList.add('hidden');
+                        panel.setAttribute('aria-hidden', 'true');
+                    }
+                });
+            }
+
+            document.querySelectorAll('.buy-button').forEach(button => {
+                button.addEventListener('click', () => {
+                    console.log(`Attempting to buy item: ${button.parentElement.previousElementSibling.querySelector('h3').textContent}`);
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Auxi – AI Study Buddy</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index,follow">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-dark': '#0f172a',
+                        'card-surface': '#1e293b',
+                        'text-soft': '#cbd5e1',
+                        'heading-color': '#f8fafc',
+                        'primary-action': '#4a889b',
+                        'secondary-info': '#7c77a9',
+                        'accent-points': '#34d399',
+                        'cta-hover': '#60a5fa',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'glow': '0 0 15px rgba(74, 136, 155, 0.5), 0 0 5px rgba(74, 136, 155, 0.3)',
+                    }
+                },
+            }
+        }
+    </script>
+    <style>
+        body {
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            background: radial-gradient(circle at center, rgba(15, 23, 42, 0.8) 10%, #08101a 75%);
+            background-attachment: fixed;
+        }
+
+        .gjs-t-h1, .gjs-t-h2 {
+            font-family: 'Outfit', 'Inter', sans-serif;
+            color: theme('colors.heading-color');
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+        .gjs-t-h1 { font-size: 2.6rem; line-height: 1.1; }
+        .gjs-t-h2 { font-size: 1.75rem; line-height: 1.25; }
+        
+        @media (max-width: 640px) {
+            .gjs-t-h1 { font-size: 2rem; }
+        }
+
+        .tts-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.5rem;
+            background-color: rgba(30, 41, 59, 0.6);
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+            z-index: 10;
+        }
+        .gradient-120-dark {
+            background: linear-gradient(120deg, #0b0f14 50%, #172430 100%);
+            background-attachment: fixed;
+        }
+        .tts-btn:hover {
+            background-color: theme('colors.primary-action');
+        }
+        .tts-btn img {
+            width: 1.25rem;
+            height: 1.25rem;
+            filter: brightness(1.5);
+        }
+        .tts-btn.top-2 {
+            top: 0.5rem;
+            right: 0.5rem;
+        }
+        .tts-btn.top-2 img {
+            width: 1rem;
+            height: 1rem;
+        }
+        .nav-link {
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            color: #e5e7eb;
+            transition: color 0.2s, background-color 0.2s;
+        }
+        .nav-link:hover {
+            color: #ffffff;
+            background-color: #1f2937; 
+        }
+        
+        .nav-link.active {
+            color: #4f46e5; 
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body class="gradient-120-dark  text-text-soft bg-bg-dark font-sans antialiased min-h-screen">
+
+    <header class="bg-background-dark/95 backdrop-blur-sm sticky top-0 z-50 shadow-xl shadow-black/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex items-center justify-between">
+            <a href="./homepage.html" class="flex items-center space-x-2 text-heading-color hover:opacity-90 transition-opacity">
+                <div class="w-8 h-8 flex items-center justify-center">
+                    <img src="https://api.iconify.design/lucide-book.svg?color=%23f8fafc" alt="Auxi logo - minimal book" class="w-7 h-7" />
+                </div>
+                <span class="text-2xl font-bold font-heading tracking-tight">Auxi</span>
+            </a>
+            
+            <nav class="flex space-x-2 sm:space-x-4 text-sm font-medium">
+                <a href="./homepage.html" class="nav-link active">Home</a>
+                <a href="./auxichat.html" class="nav-link hidden sm:block">Auxi Chat</a>
+                <a href="./quiz.html" class="nav-link hidden sm:block">Quiz</a>
+                <a href="./shop.html" class="nav-link hidden sm:block">Shop</a>
+                <a href="./about-ush.html" class="nav-link hidden sm:block">About Us</a>
+                <a href="./index.html" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-3 rounded-lg shadow-md transition duration-300 flex items-center gap-1.5 whitespace-nowrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" x2="9" y1="12" y2="12"/>
+                    </svg>
+                    Log Out
+                </a>
+            </nav> 
+        </div>
+    </header>
+
+    <main id="main-content" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+
+        <section id="igasb" class="relative p-8 sm:p-12 lg:p-16 rounded-3xl overflow-hidden shadow-xl bg-card-surface border border-primary-action/50 shadow-glow">
+            <button type="button" aria-label="Listen to this section" class="tts-btn absolute top-4 right-4 p-2 rounded-full bg-bg-dark/70 hover:bg-primary-action transition-colors z-20">
+                <img src="https://api.iconify.design/mdi:text-to-speech.svg?color=%23cbd5e1" alt="" aria-hidden="true" class="w-5 h-5" />
+            </button>
+            
+            <div id="in1z6" class="relative z-10 max-w-4xl space-y-4">
+                <h1 id="imbnl" class="gjs-t-h1 text-heading-color font-heading font-bold">
+                    Auxi, Your AI-powered study buddy, built to help every student thrive.
+                </h1>
+                <p id="imx2n" class="text-lg text-text-soft/90 max-w-3xl">
+                    Auxi keeps learning simple and supportive with an inclusive design, soft contrasts, and tools that adapt to you.
+                </p>
+                <div id="ikv0a" class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 pt-4">
+                    <a href="./auxichat.html" id="i60zi" class="py-3 px-6 rounded-full font-bold text-lg bg-primary-action text-bg-dark hover:bg-cta-hover transition-colors shadow-lg shadow-primary-action/40">
+                        Auxi Chatbox
+                    </a>
+                    <a href="./about-ush.html" id="ivpfg" class="py-3 px-6 rounded-full font-medium text-lg border border-text-soft/30 text-text-soft hover:bg-card-surface/50 transition-colors">
+                        Learn about our mission
+                    </a>
+                </div>
+            </div>
+            <div class="absolute inset-0 opacity-10 pointer-events-none">
+                <div class="w-96 h-96 bg-primary-action rounded-full blur-3xl absolute top-0 right-0 transform translate-x-1/4 -translate-y-1/4"></div>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <article id="profile" class="lg:col-span-1 p-6 rounded-2xl shadow-xl border border-secondary-info/50 bg-card-surface relative">
+                <button type="button" aria-label="Listen to this section" class="tts-btn absolute top-14 right-4 p-2 rounded-full bg-bg-dark/70 hover:bg-primary-action transition-colors">
+                    <img src="https://api.iconify.design/mdi:text-to-speech.svg?color=%23cbd5e1" alt="" aria-hidden="true" class="w-5 h-5" />
+                </button>
+                <div class="space-y-6">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center space-x-3">
+                            <img src="https://api.iconify.design/lucide-user-round.svg?color=%23cbd5e1" alt="Profile icon" class="w-6 h-6 text-text-soft" />
+                            <h2 class="gjs-t-h2 text-xl font-heading font-bold text-heading-color">Your Profile</h2>
+                        </div>
+                        <div class="flex items-center space-x-1 px-3 py-1 rounded-full bg-accent-points/20 text-accent-points font-bold text-sm">
+                            <img src="https://api.iconify.design/lucide-star.svg?color=%2334d399" alt="Points" class="w-4 h-4" />
+                            <span>1,240 pts</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col items-center">
+                        <div class="w-24 h-24 mb-4 rounded-full border-4 border-primary-action overflow-hidden">
+                            <img src="https://app.grapesjs.com/api/assets/random-image?query=&quot;minimal student avatar portrait dark&quot;&w=256&h=256" alt="Student avatar" loading="lazy" class="w-full h-full object-cover" />
+                        </div>
+                        <div class="text-center space-y-0.5">
+                            <span class="text-xl font-bold text-heading-color block">Divya Bhosale</span>
+                            <span class="text-sm text-text-soft/70 block">Consistent learner • Computer Science major</span>
+                            <div class="flex items-center justify-center space-x-1 text-sm text-text-soft pt-1">
+                                <img src="https://api.iconify.design/lucide-map-pin.svg?color=%23cbd5e1" alt="Location pin icon" class="w-4 h-4" />
+                                <span class="location-text">UAE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center text-sm font-medium">
+                            <span class="progress-label text-text-soft">Weekly goal</span>
+                            <span class="progress-value font-bold text-primary-action">70%</span>
+                        </div>
+                        <div class="w-full bg-slate-700 rounded-full h-2">
+                            <div class="h-2 rounded-full bg-primary-action" style="width: 70%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 pt-2">
+                        <div class="flex items-center space-x-1 px-3 py-1 rounded-full text-xs font-medium bg-yellow-800/50 text-yellow-300">
+                            <img src="https://api.iconify.design/lucide-trophy.svg?color=%23fde047" alt="Trophy" class="w-4 h-4" />
+                            <span class="achievement-label">Streak 7</span>
+                        </div>
+                        <div class="flex items-center space-x-1 px-3 py-1 rounded-full text-xs font-medium bg-green-800/50 text-green-300">
+                            <img src="https://api.iconify.design/lucide-badge-check.svg?color=%234ade80" alt="Badge" class="w-4 h-4" />
+                            <span class="achievement-label">Quiz Ace</span>
+                        </div>
+                        <div class="flex items-center space-x-1 px-3 py-1 rounded-full text-xs font-medium bg-indigo-800/50 text-indigo-300">
+                            <img src="https://api.iconify.design/lucide-book-open.svg?color=%23a5b4fc" alt="Book open" class="w-4 h-4" />
+                            <span class="achievement-label">30 notes</span>
+                        </div>
+                    </div>
+
+                    <p class="text-sm text-text-soft/80 pt-2">
+                        Passionate about computer science and dedicated to consistent learning. Loves exploring new study techniques and sharing knowledge with peers.
+                    </p>
+                </div>
+            </article>
+
+            <article id="shop" class="lg:col-span-2 p-6 rounded-2xl shadow-xl border border-primary-action/50 bg-card-surface relative">
+                <button type="button" aria-label="Listen to this section" class="tts-btn absolute top-4 right-4 p-2 rounded-full bg-bg-dark/70 hover:bg-primary-action transition-colors z-20">
+                    <img src="https://api.iconify.design/mdi:text-to-speech.svg?color=%23cbd5e1" alt="" aria-hidden="true" class="w-5 h-5" />
+                </button>
+
+                <a href="./shop.html" class="absolute top-5 right-16 text-primary-action hover:text-cta-hover transition font-medium text-sm z-20">View all &rarr;</a>
+
+                <div class="flex items-center space-x-3 mb-6">
+                    <img src="https://api.iconify.design/lucide-shopping-bag.svg?color=%23cbd5e1" alt="Shop icon" class="w-6 h-6 text-text-soft" />
+                    <h2 class="gjs-t-h2 text-xl font-heading font-bold text-heading-color">Shop (Spend your points)</h2>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    <div class="relative p-3 rounded-xl bg-bg-dark/50 hover:bg-bg-dark transition-all duration-300 shadow-md border border-card-surface/50">
+                        <div class="aspect-video overflow-hidden rounded-lg mb-3">
+                            <img src="https://app.grapesjs.com/api/assets/random-image?query=&quot;neon abstract avatar icon&quot;&w=400&h=300" alt="Avatar decoration" loading="lazy" class="w-full h-full object-cover" />
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="shop-item-name font-medium text-text-soft">Avatar Glow Pack</span>
+                            <div class="flex items-center space-x-1 text-sm font-semibold text-yellow-300">
+                                <img src="https://api.iconify.design/lucide-star.svg?color=%23fde047" alt="Points" class="w-4 h-4" />
+                                <span class="shop-item-points">200</span>
+                            </div>
+                        </div>
+                        <p class="shop-description text-sm text-text-soft/70 mb-2 mt-0.5">Give your profile picture a cool, subtle digital glow. Unlock radiant visuals for your avatar.</p>
+                        <button type="button" class="w-full py-2 rounded-lg font-semibold bg-secondary-info text-bg-dark hover:bg-secondary-info/80 transition-colors">
+                            Redeem
+                        </button>
+                    </div>
+
+                    <div class="relative p-3 rounded-xl bg-bg-dark/50 hover:bg-bg-dark transition-all duration-300 shadow-md border border-card-surface/50">
+                        <div class="aspect-video overflow-hidden rounded-lg mb-3">
+                            <img src="https://app.grapesjs.com/api/assets/random-image?query=&quot;dark gradient theme wallpaper&quot;&w=400&h=300" alt="Theme wallpaper" loading="lazy" class="w-full h-full object-cover" />
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="shop-item-name font-medium text-text-soft">Midnight Theme</span>
+                            <div class="flex items-center space-x-1 text-sm font-semibold text-yellow-300">
+                                <img src="https://api.iconify.design/lucide-star.svg?color=%23fde047" alt="Points" class="w-4 h-4" />
+                                <span class="shop-item-points">350</span>
+                            </div>
+                        </div>
+                        <p class="shop-description text-sm text-text-soft/70 mb-2 mt-0.5">An ultra-dark, high-contrast theme for late-night study sessions.</p>
+                        <button type="button" class="w-full py-2 rounded-lg font-semibold bg-secondary-info text-bg-dark hover:bg-secondary-info/80 transition-colors">
+                            Redeem
+                        </button>
+                    </div>
+
+                    <div class="relative p-3 rounded-xl bg-bg-dark/50 hover:bg-bg-dark transition-all duration-300 shadow-md border border-card-surface/50">
+                        <div class="aspect-video overflow-hidden rounded-lg mb-3">
+                            <img src="https://app.grapesjs.com/api/assets/random-image?query=&quot;study sticker pack icons&quot;&w=400&h=300" alt="Sticker pack" loading="lazy" class="w-full h-full object-cover" />
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="shop-item-name font-medium text-text-soft">Study Stickers</span>
+                            <div class="flex items-center space-x-1 text-sm font-semibold text-yellow-300">
+                                <img src="https://api.iconify.design/lucide-star.svg?color=%23fde047" alt="Points" class="w-4 h-4" />
+                                <span class="shop-item-points">120</span>
+                            </div>
+                        </div>
+                        <p class="shop-description text-sm text-text-soft/70 mb-2 mt-0.5">A collection of fun digital stickers to personalize your notes.</p>
+                        <button type="button" class="w-full py-2 rounded-lg font-semibold bg-secondary-info text-bg-dark hover:bg-secondary-info/80 transition-colors">
+                            Redeem
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="mt-6 p-4 sm:p-5 rounded-xl bg-bg-dark border border-primary-action/50 flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0 sm:space-x-4">
+                    <p class="text-sm sm:text-base text-text-soft/90 font-medium text-center sm:text-left">
+                        Need more points? Go to the <span class="text-accent-points font-bold">Auxi Chatbox</span> to create quizzes, test your knowledge, and earn points for these awesome rewards!
+                    </p>
+                    <a href="./auxichat.html" class="flex-shrink-0 py-2 px-4 rounded-full font-bold text-sm bg-primary-action text-bg-dark hover:bg-cta-hover transition-colors">
+                        Go to Quiz Chat
+                    </a>
+                </div>
+            </article>
+        </div>
+
+        <section id="study-tips">
+            <article class="p-6 rounded-2xl shadow-xl border border-secondary-info/50 bg-card-surface relative">
+                <button type="button" aria-label="Listen to this section" class="tts-btn absolute top-4 right-4 p-2 rounded-full bg-bg-dark/70 hover:bg-primary-action transition-colors">
+                    <img src="https://api.iconify.design/mdi:text-to-speech.svg?color=%23cbd5e1" alt="" aria-hidden="true" class="w-5 h-5" />
+                </button>
+                <div class="flex items-center space-x-3 mb-6">
+                    <img src="https://api.iconify.design/lucide-wand-2.svg?color=%23cbd5e1" alt="Tips icon" class="w-6 h-6 text-text-soft" />
+                    <h2 class="gjs-t-h2 text-xl font-heading font-bold text-heading-color">Study Tips by Auxi</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="relative p-4 rounded-xl bg-bg-dark/50 border border-card-surface">
+                        <strong class="tip-title text-primary-action font-semibold block mb-1">Chunk your learning</strong>
+                        <p class="tip-text text-text-soft/90 text-sm">Use 25–30 min focus blocks with short breaks to improve retention, preventing mental fatigue and overload.</p>
+                    </div>
+                    <div class="relative p-4 rounded-xl bg-bg-dark/50 border border-card-surface">
+                        <strong class="tip-title text-primary-action font-semibold block mb-1">Active recall</strong>
+                        <p class="tip-text text-text-soft/90 text-sm">Practice retrieving info with quick quizzes instead of passive re-reading. This strengthens memory pathways.</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <script id="i32i8j">
+            (function() {
+                const supported = 'speechSynthesis' in window && 'SpeechSynthesisUtterance' in window;
+                const playIcon = 'https://api.iconify.design/mdi:text-to-speech.svg?color=%23cbd5e1';
+                const stopIcon = 'https://api.iconify.design/mdi:stop-circle-outline.svg?color=%23cbd5e1';
+
+                if (!supported) return;
+
+                let activeUtterance = null;
+                let activeButton = null;
+
+                function getReadableText(scope) {
+                    const selectors = [
+                        '.gjs-t-h1', '.gjs-t-h2', '.text-lg',
+                        '.shop-item-name', '.shop-description', '.shop-item-points',
+                        '.text-xl.font-bold', '.text-sm',
+                        '.progress-label', '.progress-value', '.achievement-label',
+                        '.tip-title', '.tip-text',
+                        'p:not(a), span:not(a), strong:not(a)'
+                    ];
+                    const parts = [];
+                    
+                    const collectedTexts = new Set();
+                    
+                    selectors.forEach(sel => {
+                        scope.querySelectorAll(sel).forEach(el => {
+                            const txt = (el.textContent || '').trim();
+                            if (txt && el.offsetWidth > 0 && !collectedTexts.has(txt) && !el.closest('.tts-btn')) {
+                                parts.push(txt);
+                                collectedTexts.add(txt);
+                            }
+                        });
+                    });
+                    
+                    return parts.join('. '); 
+                }
+
+                function stopReading() {
+                    if (activeUtterance) {
+                        speechSynthesis.cancel();
+                        activeUtterance = null;
+                    }
+                    if (activeButton) {
+                        const img = activeButton.querySelector('img');
+                        if (img) img.src = playIcon;
+                        activeButton.setAttribute('aria-label', 'Listen to this section');
+                        activeButton = null;
+                    }
+                }
+                
+                const ttsButtons = document.querySelectorAll('.tts-btn');
+
+                ttsButtons.forEach(button => {
+                    button.addEventListener('click', () => {
+                        const scope = button.closest('section, article');
+
+                        if (!scope) {
+                            console.error('TTS button is not contained within a section or article.');
+                            return;
+                        }
+
+                        if (activeUtterance && activeButton !== button) {
+                            stopReading();
+                        }
+                        
+                        if (activeUtterance && activeButton === button) {
+                            stopReading();
+                            return;
+                        }
+
+                        activeButton = button;
+                        const text = getReadableText(scope);
+                        
+                        if (!text) {
+                            console.error('No readable text found for this scope.');
+                            activeButton = null;
+                            return;
+                        }
+
+                        const img = button.querySelector('img');
+                        if (img) img.src = stopIcon;
+                        button.setAttribute('aria-label', 'Stop reading content');
+
+                        activeUtterance = new SpeechSynthesisUtterance(text);
+                        activeUtterance.lang = document.documentElement.lang || 'en-US';
+                        activeUtterance.rate = 0.95;
+                        activeUtterance.pitch = 1.0;
+                        activeUtterance.onend = stopReading;
+                        activeUtterance.onerror = stopReading;
+
+                        speechSynthesis.speak(activeUtterance);
+                    });
+                });
+
+                window.addEventListener('beforeunload', stopReading);
+            })();
+        </script>
+    </main>
+
+    <footer class="bg-background-dark py-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-sm">
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-2 text-heading-color">
+                    <img src="https://api.iconify.design/lucide-book.svg?color=%23f8fafc" alt="Auxi logo" class="w-6 h-6" />
+                    <span class="text-xl font-heading font-bold">Auxi</span>
+                    <small class="text-text-soft/50">© 2025</small>
+                </div>
+            </div>
+
+            <div class="flex space-x-6 text-text-soft">
+                <a href="./about-ush.html" class="hover:text-primary-action transition">About</a>
+                <a href="#" class="hover:text-primary-action transition">Privacy</a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

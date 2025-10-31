@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuxiChat - AI StudyBuddy</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> 
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #18161c; 
+            color: #e5e7eb; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative; 
+        }
+
+        #radial-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0; 
+            background-image: radial-gradient(ellipse at 50% 40%, 
+                rgba(5, 15, 25, 1) 0%, 
+                rgb(0, 0, 0) 70% 
+            );
+        }
+        
+        #header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 20;
+            background-color: rgba(24, 21, 21, 0.038); 
+            backdrop-filter: blur(5px); 
+            border-bottom: 1px solid #1f2937; 
+            box-shadow: 0 4px 30px rgba(79, 70, 229, 0.1); 
+        }
+        
+        #input-area-wrapper {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 20;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 90%, rgba(0, 0, 0, 0.1) 100%);
+            backdrop-filter: blur(5px); 
+            padding-top: 1rem; 
+        }
+        
+        #input-area {
+            background-color: #111827; 
+            border: 1px solid #1f2937;
+            box-shadow: 0 -8px 30px rgba(79, 70, 229, 0.1); 
+        }
+
+      
+        #chat-history {
+            padding-top: 6rem;
+            padding-bottom: 9rem;
+            max-width: 800px; 
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            min-width: 300px; 
+            z-index: 10; 
+        }
+        
+    
+        #chat-history::-webkit-scrollbar {
+            width: 8px;
+        }
+        #chat-history::-webkit-scrollbar-thumb {
+            background-color: #4f46e5; 
+            border-radius: 4px;
+        }
+        
+
+        .ai-message {
+            background-color: #1f2937 !important; 
+            color: #ffffff !important;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            border: 1px solid #374151; 
+        }
+        
+ 
+        .tts-button {
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .tts-button:hover {
+            background-color: #6366f1; 
+        }
+        .tts-playing {
+            background-color: #10b981; 
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #10b981;
+        }
+
+    
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .tts-loading .spinner-icon,
+        .send-loading .spinner-icon {
+            animation: spin 0.8s linear infinite;
+        }
+
+        .nav-link {
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            color: #e5e7eb;
+            transition: color 0.2s, background-color 0.2s;
+        }
+        .nav-link:hover {
+            color: #ffffff;
+            background-color: #1f2937; 
+        }
+    
+        .nav-link.active {
+            color: #4f46e5; 
+            font-weight: 600;
+        }
+        
+
+        .katex-display {
+            margin-top: 0.75em !important;
+            margin-bottom: 0.75em !important;
+        }
+
+        .ai-message p:first-child {
+            margin-top: 0;
+        }
+        .ai-message p:last-child {
+            margin-bottom: 0;
+        }
+        .ai-message ul, .ai-message ol {
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            list-style-position: outside;
+        }
+        .ai-message ul {
+            list-style-type: disc;
+        }
+        .ai-message strong {
+            font-weight: 700;
+            color: #ffffff; 
+        }
+    </style>
+</head>
+
+
+<body class="p-0 m-0">
+    <div id="radial-background"></div>
+    <div id="header" class="p-4">
+        <div class="bg-background-dark/95 backdrop-blur-sm max-w-7xl mx-auto flex justify-between items-center shadow-xl shadow-black/20">
+            <div class="flex items-center space-x-3">
+                <a href="./homepage.html" class="flex items-center space-x-2 text-heading-color hover:opacity-90 transition-opacity">
+                    <div class="w-8 h-8 flex items-center justify-center">
+                        <img src="https://api.iconify.design/lucide-book.svg?color=%23f8fafc" alt="Auxi logo - minimal book" class="w-7 h-7" />
+                    </div>
+                    <span class="text-2xl font-bold font-heading tracking-tight">Auxi</span>
+                </a>
+            </div>
+            <nav class="flex space-x-2 sm:space-x-4 text-sm font-medium">
+                <a href="./homepage.html" class="nav-link">Home</a>
+                <a href="./auxichat.html" class="nav-link active">Auxi Chat</a>
+                <a href="./quiz.html" class="nav-link hidden sm:block">Quiz</a>
+                <a href="./shop.html" class="nav-link hidden sm:block">Shop</a>
+                <a href="./about-ush.html" class="nav-link hidden sm:block">About Us</a>
+                <a href="./index.html" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-3 rounded-lg shadow-md transition duration-300 flex items-center gap-1.5 whitespace-nowrap">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                        <polyline points="16 17 21 12 16 7"/>
+                        <line x1="21" x2="9" y1="12" y2="12"/>
+                    </svg>
+                    Log Out
+                </a>
+            </nav>
+        </div>
+    </div>
+
+
+    <div id="chat-history" class="flex-grow p-4 space-y-6 overflow-y-auto">
+        
+
+        <div id="welcome-screen" class="flex flex-col items-center justify-center min-h-[calc(100vh-15rem)] text-center p-8 z-10">
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-white mb-4 opacity-90">
+                <rect x="5" y="5" width="14" height="14" rx="3" ry="3"/>
+                <line x1="5" y1="16" x2="19" y2="16"/>
+            </svg>
+
+            <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-2 tracking-tight">
+                Ask Auxi anything
+            </h2>
+            <p class="text-lg text-gray-400 max-w-sm font-light">
+                Your AI StudyBuddy is designed for clear, simple learning.
+            </p>
+        </div>
+        
+        </div>
+
+
+    <div id="input-area-wrapper" class="flex justify-center p-4">
+        <div id="input-area" class="w-full max-w-2xl flex items-center rounded-xl p-2">
+            <textarea
+                id="user-input"
+                class="flex-grow resize-none p-2 border-none bg-transparent text-white focus:ring-0 focus:outline-none placeholder-gray-400 text-lg font-light"
+                placeholder="Ask Auxi anything..."
+                rows="1"
+            ></textarea>
+            <button
+                id="send-button"
+                class="bg-indigo-600 text-white p-3 rounded-lg hover:bg-indigo-500 transition duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-300 disabled:opacity-50 disabled:cursor-not-allowed text-lg shadow-lg hover:shadow-indigo-500/50 ml-2"
+                onclick="sendMessage()"
+            >
+                
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send-horizonal">
+                    <path d="m3 3 3 9-3 9 19-9Z"/>
+                    <path d="M6 12h16"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const apiKey = "AIzaSyA2RZfj5OvgEg74eINzLu7zMRh26ylIvrE"; 
+        const textModelName = "gemini-2.5-flash-preview-05-20";
+        const ttsModelName = "gemini-2.5-flash-preview-tts";
+        const textApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${textModelName}:generateContent?key=${apiKey}`;
+        const ttsApiUrl = `https://generativelangugae.googleapis.com/v1beta/models/${ttsModelName}:generateContent?key=${apiKey}`;
+        const ttsVoice = "Kore"; 
+
+        const chatHistory = document.getElementById('chat-history');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const welcomeScreen = document.getElementById('welcome-screen');
+
+        let isSending = false;
+        let audioContext;
+        let currentAudio = null; 
+        let currentPlayingButton = null; 
+
+
+        function getSendIconHtml() {
+            return `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send-horizonal">
+                    <path d="m3 3 3 9-3 9 19-9Z"/>
+                    <path d="M6 12h16"/>
+                </svg>
+            `;
+        }
+
+
+        function getSendLoadingHtml() {
+            return `
+                <svg class="w-6 h-6 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+            `;
+        }
+
+
+
+        function getSpeakerIconHtml() {
+            
+            return `
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-volume-2">
+                    <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                    <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                    <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                </svg>
+            `;
+        }
+        
+
+        function getSpinnerHtml() {
+            
+            return `
+                <svg class="spinner-icon w-5 h-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+            `;
+        }
+        
+
+        function base64ToArrayBuffer(base64) {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        function writeString(view, offset, string) {
+            for (let i = 0; i < string.length; i++) {
+                view.setUint8(offset + i, string.charCodeAt(i));
+            }
+        }
+
+        function pcmToWav(pcm16, sampleRate) {
+            const numChannels = 1;
+            const bytesPerSample = 2;
+            const blockAlign = numChannels * bytesPerSample;
+            const byteRate = sampleRate * blockAlign;
+            const dataSize = pcm16.byteLength;
+            const fileSize = 36 + dataSize; 
+
+            const buffer = new ArrayBuffer(fileSize + 8); 
+            const view = new DataView(buffer);
+
+            let offset = 0;
+
+            writeString(view, offset, 'RIFF'); offset += 4;
+            view.setUint32(offset, fileSize, true); offset += 4; 
+            writeString(view, offset, 'WAVE'); offset += 4;
+
+            writeString(view, offset, 'fmt '); offset += 4;
+            view.setUint32(offset, 16, true); offset += 4; 
+            view.setUint16(offset, 1, true); offset += 2; 
+            view.setUint16(offset, numChannels, true); offset += 2;
+            view.setUint32(offset, sampleRate, true); offset += 4;
+            view.setUint32(offset, byteRate, true); offset += 4;
+            view.setUint16(offset, blockAlign, true); offset += 2;
+            view.setUint16(offset, 16, true); offset += 2; 
+
+            writeString(view, offset, 'data'); offset += 4;
+            view.setUint32(offset, dataSize, true); offset += 4; 
+
+            const pcmBytes = new Uint8Array(pcm16.buffer);
+            new Uint8Array(buffer).set(pcmBytes, offset); 
+            
+            return new Blob([buffer], { type: 'audio/wav' });
+        }
+
+
+        function stopCurrentAudio() {
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+                currentAudio = null;
+            }
+            if (currentPlayingButton) {
+                currentPlayingButton.classList.remove('tts-playing', 'tts-loading');
+                currentPlayingButton.innerHTML = getSpeakerIconHtml();
+                currentPlayingButton = null;
+            }
+        }
+
+
+        async function speakText(text, buttonElement) {
+            stopCurrentAudio(); 
+            buttonElement.classList.add('tts-loading'); 
+            buttonElement.innerHTML = getSpinnerHtml(); 
+            currentPlayingButton = buttonElement;
+
+            const cleanText = text.trim(); 
+            if (!cleanText) {
+                stopCurrentAudio();
+                return;
+            }
+
+            const payload = {
+                contents: [{ parts: [{ text: cleanText }] }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: {
+                        voiceConfig: {
+                            prebuiltVoiceConfig: { voiceName: ttsVoice }
+                        }
+                    }
+                },
+                model: ttsModelName
+            };
+
+            const options = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            };
+
+            try {
+                const response = await exponentialBackoffFetch(ttsApiUrl, options);
+                const result = await response.json();
+                
+                const part = result?.candidates?.[0]?.content?.parts?.[0];
+                const audioData = part?.inlineData?.data;
+                const mimeType = part?.inlineData?.mimeType;
+
+                if (audioData && mimeType && mimeType.startsWith("audio/")) {
+                    const sampleRateMatch = mimeType.match(/rate=(\d+)/);
+                    if (!sampleRateMatch) throw new Error("Missing sample rate in mimeType.");
+                    
+                    const sampleRate = parseInt(sampleRateMatch[1], 10);
+                    const pcmDataBuffer = base64ToArrayBuffer(audioData);
+                    
+                    const pcm16 = new Int16Array(pcmDataBuffer);
+                    const wavBlob = pcmToWav(pcm16, sampleRate);
+                    const audioUrl = URL.createObjectURL(wavBlob);
+
+                    if (!audioContext) {
+                        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    }
+                    
+                    const audio = new Audio(audioUrl);
+                    currentAudio = audio; 
+                    
+                    buttonElement.classList.remove('tts-loading');
+                    buttonElement.classList.add('tts-playing'); 
+                    buttonElement.innerHTML = getSpeakerIconHtml(); 
+                    
+                    audio.onended = () => stopCurrentAudio(); 
+                    audio.onerror = () => stopCurrentAudio(); 
+                    
+                    audio.play().catch(e => {
+                        console.error("Error playing audio. User interaction might be required.", e);
+                        stopCurrentAudio();
+                    });
+                } else {
+                    console.error("TTS API failed to return valid audio data.", result);
+                    stopCurrentAudio();
+                }
+
+            } catch (error) {
+                console.error("TTS API Call failed:", error.message);
+                stopCurrentAudio();
+            } 
+        }
+        
+        function speakTextFromButton(buttonElement) {
+            const textToSpeak = buttonElement.getAttribute('data-text');
+            
+            if (currentPlayingButton === buttonElement && currentAudio) {
+                
+                stopCurrentAudio();
+            } else if (textToSpeak) {
+                
+                speakText(textToSpeak, buttonElement);
+            }
+        }
+
+
+        function createAvatar(sender) {
+            const avatar = document.createElement('div');
+            const isUser = sender === 'user';
+            
+            avatar.className = `flex items-center justify-center w-8 h-8 rounded-full font-bold text-base flex-shrink-0 shadow-md ${
+                isUser 
+                ? 'bg-indigo-500 text-white' 
+                : 'bg-gray-900 text-white' 
+            }`;
+            
+            if (isUser) {
+                avatar.textContent = 'U'; 
+            } else {
+                avatar.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+                        <rect x="5" y="5" width="14" height="14" rx="3" ry="3"/>
+                        <line x1="5" y1="16" x2="19" y2="16"/>
+                    </svg>
+                `;
+            }
+
+            return avatar;
+        }
+
+        function renderMessage(text, sender) {
+            welcomeScreen.classList.add('hidden');
+
+            const isUser = sender === 'user';
+
+            const messageWrapper = document.createElement('div');
+            messageWrapper.className = `flex items-start gap-3 ${isUser ? 'justify-end' : 'justify-start'}`;
+            
+            const messageBubble = document.createElement('div');
+            
+            messageBubble.className = `p-4 rounded-xl max-w-[80%] shadow-xl relative transition-all duration-300 ${
+                isUser 
+                ? 'bg-indigo-600 text-white rounded-br-sm text-lg' 
+                : 'ai-message rounded-tl-sm pb-12 pr-12' 
+            }`;
+            
+            let htmlToDisplay;
+            let ttsText = text.trim(); 
+            
+            if (isUser) {
+                
+                htmlToDisplay = text.replace(/\n/g, '<br>');
+            } else if (typeof marked !== 'undefined') {
+                
+                htmlToDisplay = marked.parse(text);
+                
+                
+                ttsText = ttsText
+                    .replace(/\$\$([\s\S]*?)\$\$/g, ' equation ') 
+                    .replace(/\$([^\$]*?)\$/g, ' equation ') 
+                    .replace(/([*_~])/g, '') 
+                    .replace(/&quot;/g, '"'); 
+            } else {
+                
+                htmlToDisplay = text.replace(/\n/g, '<br>');
+            }
+            
+            messageBubble.innerHTML = htmlToDisplay;
+
+            const avatar = createAvatar(sender);
+
+            if (isUser) {
+                messageWrapper.appendChild(messageBubble);
+                messageWrapper.appendChild(avatar);
+            } else {
+                const ttsButtonHtml = `
+                    <button onclick="speakTextFromButton(this)" 
+                            data-text="${ttsText.replace(/"/g, '&quot;')}"
+                            title="Play Audio"
+                            class="tts-button absolute bottom-3 right-3 w-7 h-7 flex items-center justify-center rounded-full bg-indigo-600 text-white shadow-xl focus:outline-none focus:ring-2 focus:ring-indigo-300">
+                        ${getSpeakerIconHtml()}
+                    </button>
+                `;
+                messageBubble.innerHTML += ttsButtonHtml; 
+                
+                messageWrapper.appendChild(avatar);
+                messageWrapper.appendChild(messageBubble);
+            }
+            
+            chatHistory.appendChild(messageWrapper);
+            
+            if (!isUser && typeof renderMathInElement !== 'undefined') {
+                
+                renderMathInElement(messageBubble, {
+                    delimiters: [
+                        { left: "$$", right: "$$", display: true }, 
+                        { left: "$", right: "$", display: false } 
+                    ],
+                    throwOnError: false
+                });
+            }
+            
+            
+            chatHistory.scrollTo({
+                top: chatHistory.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+        
+        async function exponentialBackoffFetch(url, options, maxRetries = 5, delay = 1000) {
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (response.ok) {
+                        return response;
+                    }
+                    if (response.status === 429 || response.status >= 500) {
+                        throw new Error(`Server error: ${response.status}`);
+                    } else {
+                        const errorBody = await response.json();
+                        throw new Error(`API error: ${response.status} - ${errorBody.error?.message || response.statusText}`);
+                    }
+                } catch (error) {
+                    if (i === maxRetries - 1) {
+                        throw new Error("API call failed after multiple retries.");
+                    }
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2; 
+                }
+            }
+        }
+        
+        
+        window.onload = () => {
+            sendButton.innerHTML = getSendIconHtml(); 
+        };
+
+
+        async function sendMessage() {
+            if (isSending) return;
+            const userQuery = userInput.value.trim();
+            if (!userQuery) return;
+            
+            if (!apiKey || apiKey.trim() === "") {
+                const errorMessage = "🚨 **API Key Error:** The Gemini API Key is missing. Please edit the HTML file and paste your key into the `const apiKey = \"\";` line inside the `<script>` tag.";
+                renderMessage(errorMessage, 'ai');
+                return;
+            }
+
+            stopCurrentAudio(); 
+            isSending = true;
+            sendButton.disabled = true;
+            sendButton.innerHTML = getSendLoadingHtml(); 
+            
+            userInput.value = '';
+            userInput.rows = 1; 
+            
+            renderMessage(userQuery, 'user');
+            
+            const systemPrompt = "You are AuxiChat, an AI StudyBuddy. You use a minimalist, clear, and high-contrast style optimized for users with ADHD and visual issues. Keep responses concise, use simple language, and break up text using line breaks. For all mathematical equations, scientific formulas, and chemical equations, you MUST use LaTeX notation delimited by single dollar signs ($...$) for inline math and double dollar signs ($$...$$) for block math.";
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+
+            const options = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            };
+
+            let aiResponseText = "Sorry, I couldn't connect to the AI. Please try again.";
+            
+            try {
+                const response = await exponentialBackoffFetch(textApiUrl, options);
+                const result = await response.json();
+                
+                const candidate = result.candidates?.[0];
+                
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    aiResponseText = candidate.content.parts[0].text;
+                } else {
+                    aiResponseText = "I received an empty response. Please check the console for details.";
+                }
+
+            } catch (error) {
+                console.error("Text API Call failed:", error);
+                aiResponseText = `I apologize, but I encountered an error in text generation: ${error.message}`;
+            } finally {
+                isSending = false;
+                sendButton.disabled = false;
+                sendButton.innerHTML = getSendIconHtml(); 
+                
+                
+                renderMessage(aiResponseText, 'ai');
+            }
+        }
+
+
+        
+        userInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault(); 
+                sendMessage();
+            }
+        });
+        
+        
+        userInput.addEventListener('input', () => {
+            userInput.style.height = 'auto';
+            userInput.style.height = userInput.scrollHeight + 'px';
+        });
+
+        
+        document.body.addEventListener('click', () => {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }, { once: true });
+
+    </script>
+</body>
+</html>

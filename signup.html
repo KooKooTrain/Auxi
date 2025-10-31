@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Auxi — Sign Up</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index,follow" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-auxi': '#22d3ee',
+                        'secondary-auxi': '#a78bfa',
+                        'accent-auxi': '#34d399',
+                        'background-dark': '#0b0f14',
+                        'card-dark': '#12161f',
+                        'heading-color': '#f1f5f9',
+                        'text-light': '#e5e7eb',
+                        'dark-contrast': '#061018',
+                        'border-color': '#1a212c',
+                        
+                        'sdg-4': '#00a94d',
+                        'sdg-3': '#00b8d9',
+                        'sdg-9': '#f48120',
+                        'sdg-10': '#dd1367',
+                        'form-card': '#1a212c',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    },
+                    fontSize: {
+                        'h1-custom': '42px',
+                        'h2-custom': '28px',
+                    },
+                    spacing: {
+                        '100': '6.25rem',
+                    }
+                },
+            }
+        }
+    </script>
+    <style>
+        .gjs-t-body {
+            line-height: 1.7; 
+            font-size: 16px; 
+        }
+        .gradient-radial-dark {
+            background: radial-gradient(circle at center, #173852 2%, #0b0f14 60%);
+            background-attachment: fixed;
+        }
+        .gradient-120-dark {
+            background: linear-gradient(120deg, #15191e 40%, #172c40 100%);
+            background-attachment: fixed;
+        }
+
+        .gjs-t-h1 {
+            font-size: 42px; 
+            line-height: 1.2;
+            font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+        }
+        .gjs-t-h2 {
+            font-size: 28px;
+            line-height: 1.3;
+            font-family: 'Outfit', 'Inter', system-ui, sans-serif;
+        }
+        a, button {
+            transition: all 0.3s ease-in-out;
+        }
+        .form-input {
+            background-color: #0b0f14;
+            border: 1px solid #334155;
+            color: #e5e7eb;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            width: 100%;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #22d3ee;
+            box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.5);
+        }
+        .form-label {
+            color: #d1d5db;
+            font-weight: 500;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .border-3 {
+            border-width: 3px;
+        }
+    </style>
+</head>
+
+<body class="gradient-radial-dark text-text-light font-sans antialiased min-h-screen flex flex-col gjs-t-body overflow-x-hidden">
+
+    <header class="backdrop-blur-sm sticky top-0 z-50 shadow-xl shadow-black/20">
+        <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <a href="./index.html" class="flex items-center space-x-2 text-white hover:opacity-80 transition-opacity">
+                <div class="w-8 h-8 flex items-center justify-center">
+                    <img src="https://api.iconify.design/lucide-book.svg?color=%23e5e7eb" alt="Auxi logo - minimal book" class="w-7 h-7" />
+                </div>
+                <span class="text-2xl font-bold font-heading text-heading-color tracking-tight">Auxi</span>
+            </a>
+
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+            </nav>
+            
+            <a href="./login.html" class="hidden md:inline-block px-5 py-2 rounded-full font-semibold bg-primary-auxi text-dark-contrast hover:bg-cyan-300 transition-colors shadow-lg">
+                Log In
+            </a>
+            
+            <button class="md:hidden text-gray-200 p-2 rounded-md hover:bg-gray-800">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center py-10 px-4">
+        <div class="w-full max-w-sm sm:max-w-lg">
+            
+            <div class="mb-6 relative">
+                <h1 class="text-4xl font-heading font-extrabold text-heading-color mb-1 text-left">
+                    Auxi - Sign Up
+                </h1>
+                <p class="text-md text-gray-400 text-left">This is Auxi, We are Inclusive</p>
+                
+                <a href="./index.html" class="text-white text-sm font-medium hover:opacity-80 absolute top-0 right-0 py-2 px-4 rounded-full">Back</a>
+            </div>
+
+            <div class="bg-form-card p-8 rounded-2xl shadow-2xl border border-white/50 border-3">
+                <form class="space-y-5" action="./homepage.html" method="GET">
+                    
+                    <div>
+                        <label for="fullName" class="form-label">Full Name</label>
+                        <input type="text" id="fullName" placeholder="Your name" class="form-input" required>
+                    </div>
+
+                    <div>
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" id="username" placeholder="Choose a username" class="form-input" required>
+                    </div>
+
+                    <div>
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" placeholder="Create a password" class="form-input" required>
+                    </div>
+
+                    <div>
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" id="email" placeholder="you@example.com" class="form-input" required>
+                    </div>
+
+                    <div>
+                        <label for="occupation" class="form-label">Grade / Year</label>
+                        <input type="text" id="occupation" placeholder="e.g., Grade 9, 2nd Year College" class="form-input">
+                    </div>
+                    
+                    <button type="submit" class="w-full mt-6 py-3 rounded-xl font-semibold text-lg bg-primary-auxi text-dark-contrast hover:bg-cyan-300 transition-colors shadow-lg shadow-primary-auxi/40">
+                        Create Account
+                    </button>
+                </form>
+                
+                <p class="text-center text-sm text-gray-400 mt-4">
+                    Already have an account? 
+                    <a href="./login.html" class="text-primary-auxi hover:text-cyan-300 font-medium">Log In</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-sm">
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-2">
+                    <div class="flex items-center justify-center">
+                        <img src="https://api.iconify.design/lucide-book.svg?color=%23e5e7eb" alt="Auxi logo" class="w-6 h-6"/>
+                    </div>
+                    <span class="text-xl font-heading font-bold text-heading-color">Auxi</span>
+                    <small class="text-gray-500">© 2025</small>
+                </div>
+            </div>
+
+            <div class="flex space-x-6 text-gray-400">
+                <a href="./about-us.html" class="hover:text-primary-auxi transition">About</a>
+                <a href="#" class="hover:text-primary-auxi transition">Privacy</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
